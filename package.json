@@ -1,0 +1,23 @@
+{
+  "name": "ts-rest-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jela3105/ts-rest-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jela3105/ts-rest-api/issues"
+  },
+  "homepage": "https://github.com/jela3105/ts-rest-api#readme",
+  "devDependencies": {
+    "typescript": "^4.3.2"
+  }
+}
