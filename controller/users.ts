@@ -6,12 +6,12 @@ export const getUsers = async (req: Request, res: Response) => {
   res.json({ users });
 };
 
-export const getUser = (req: Request, res: Response) => {
+export const getUser = async (req: Request, res: Response) => {
   const { id } = req.params;
-  res.json({
-    msg: "getUsers",
-    id,
-  });
+  const user = await User.findByPk(id);
+  user
+    ? res.json({ user })
+    : res.status(404).json({ msg: `The user with id ${id} not exists` });
 };
 
 export const postUser = (req: Request, res: Response) => {
