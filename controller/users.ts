@@ -60,7 +60,7 @@ export const deleteUser = async (req: Request, res: Response) => {
       .status(404)
       .json({ msg: `The user with id ${id} does not exists` });
   }
-  await user.destroy();
+  await user.update({ state: false });
 
   res.json({
     msg: "Delete user",
