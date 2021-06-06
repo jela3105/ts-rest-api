@@ -52,10 +52,18 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteUser = (req: Request, res: Response) => {
+export const deleteUser = async (req: Request, res: Response) => {
   const { id } = req.params;
+  const user = await User.findByPk(id);
+  if (!user) {
+    return res
+      .status(404)
+      .json({ msg: `The user with id ${id} does not exists` });
+  }
+  await user.destroy();
+
   res.json({
-    msg: "deleteUsers",
-    id,
+    msg: "Delete user",
+    user,
   });
 };
