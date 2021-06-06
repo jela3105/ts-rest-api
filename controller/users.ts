@@ -34,14 +34,22 @@ export const postUser = async (req: Request, res: Response) => {
   }
 };
 
-export const updateUser = (req: Request, res: Response) => {
+export const updateUser = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { body } = req;
-  res.json({
-    msg: "updateUsers",
-    id,
-    body,
-  });
+  try {
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ msg: `The user with id ${id} does not exists` });
+    }
+    await user.update(body);
+    res.json({ user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Somenting in the server wend wrong " });
+  }
 };
 
 export const deleteUser = (req: Request, res: Response) => {
