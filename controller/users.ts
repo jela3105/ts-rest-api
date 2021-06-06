@@ -14,12 +14,24 @@ export const getUser = async (req: Request, res: Response) => {
     : res.status(404).json({ msg: `The user with id ${id} not exists` });
 };
 
-export const postUser = (req: Request, res: Response) => {
+export const postUser = async (req: Request, res: Response) => {
   const { body } = req;
-  res.json({
-    msg: "postUsers",
-    body,
-  });
+  try {
+    const emailExists = await User.findOne({
+      where: {
+        email: body.email,
+      },
+    });
+    if (emailExists) {
+      return res.status(400).json({ msg: "The user already exists" });
+    }
+    const user = User.build(body);
+    await user.save();
+    res.json({ user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Somenting in the server wend wrong " });
+  }
 };
 
 export const updateUser = (req: Request, res: Response) => {
